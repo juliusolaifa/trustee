@@ -13,6 +13,7 @@ import os
 # importing Scikit-learn library and datasets package
 from sklearn import datasets
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
 from trustee.report.trust import TrustReport
 
@@ -28,6 +29,7 @@ else:
     iris = datasets.load_iris()
     # dividing the datasets into two parts i.e. training datasets and test datasets
     X, y = datasets.load_iris(return_X_y=True, as_frame=True)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
     # creating a RF classifier
     clf = RandomForestClassifier(n_estimators=100)
@@ -37,6 +39,10 @@ else:
         clf,
         X=X,
         y=y,
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
         max_iter=5,
         num_pruning_iter=5,
         train_size=0.7,

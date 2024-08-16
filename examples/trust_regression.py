@@ -13,6 +13,7 @@ import os
 # importing Scikit-learn library and datasets package
 from sklearn import datasets
 from sklearn.neural_network import MLPRegressor
+from sklearn.model_selection import train_test_split
 
 from trustee.report.trust import TrustReport
 
@@ -27,6 +28,7 @@ else:
     # Loading the diabetes dataset (regression)
     diabetes = datasets.load_diabetes()
     X, y = datasets.load_diabetes(return_X_y=True, as_frame=True)
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3)
 
     # creating a RF classifier
     clf = MLPRegressor(solver="lbfgs", alpha=1e-5, hidden_layer_sizes=(100, 50), max_iter=500, random_state=1)
@@ -36,6 +38,10 @@ else:
         clf,
         X=X,
         y=y,
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
         max_iter=5,
         num_pruning_iter=5,
         train_size=0.7,
